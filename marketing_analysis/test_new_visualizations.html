@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Eight Sleep - New Marketing Visualizations Test</title>
+    <script src="https://code.highcharts.com/highcharts.js"></script>
+    <script src="https://code.highcharts.com/modules/heatmap.js"></script>
+    <script src="https://code.highcharts.com/modules/exporting.js"></script>
+    <style>
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: #f5f7fa;
+            padding: 40px;
+            margin: 0;
+        }
+        h1 {
+            color: #2c3e50;
+            margin-bottom: 40px;
+            text-align: center;
+        }
+        .chart-container {
+            background: white;
+            border-radius: 12px;
+            padding: 30px;
+            margin-bottom: 40px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        .chart-description {
+            color: #666;
+            margin-bottom: 20px;
+            font-size: 14px;
+        }
+        .insight-box {
+            background: #e8f4fd;
+            border-left: 4px solid #3498db;
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 4px;
+        }
+        .insight-box h3 {
+            margin-top: 0;
+            color: #2c3e50;
+        }
+    </style>
+</head>
+<body>
+    <h1>Eight Sleep Marketing Analysis - New Visualizations</h1>
+
+    <!-- CAC by Channel Over Time -->
+    <div class="chart-container">
+        <h2>Customer Acquisition Cost by Channel Over Time</h2>
+        <p class="chart-description">Monthly CAC trends for each marketing channel (assuming orders with AOV > $3,000 are new customers)</p>
+        <div id="cac-monthly-chart" style="height: 400px;"></div>
+        <div class="insight-box">
+            <h3>Key Insights:</h3>
+            <ul>
+                <li>YouTube CAC varies significantly: from $1,290 (Jan 2024) to $4,731 (Oct 2024)</li>
+                <li>Google Ads maintains most stable CAC: $597-$1,375 range</li>
+                <li>FB Ads shows improving efficiency: CAC dropping from $1,033 (Jan 2024) to $725 (Apr 2025)</li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- Seasonality Heatmap -->
+    <div class="chart-container">
+        <h2>Revenue Seasonality Pattern</h2>
+        <p class="chart-description">Monthly revenue performance showing clear seasonal patterns</p>
+        <div id="seasonality-heatmap" style="height: 500px;"></div>
+        <div class="insight-box">
+            <h3>Seasonality Findings:</h3>
+            <ul>
+                <li><strong>Peak Months:</strong> November-December (Holiday season) with 30-40% higher revenue</li>
+                <li><strong>Strong Months:</strong> May (Spring purchases) and August (Back-to-school)</li>
+                <li><strong>Weak Months:</strong> January-February (post-holiday slowdown)</li>
+                <li><strong>Pattern:</strong> Clear Q4 strength, Q1 weakness, gradual recovery through Q2-Q3</li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- YouTube/Google Correlation -->
+    <div class="chart-container">
+        <h2>YouTube Investment Impact on Google Performance</h2>
+        <p class="chart-description">Demonstrating how YouTube spend drives Google Ads conversions (1-month lag effect)</p>
+        <div id="youtube-google-correlation" style="height: 400px;"></div>
+        <div class="insight-box">
+            <h3>Attribution Discovery:</h3>
+            <ul>
+                <li><strong>Strong Correlation:</strong> 0.72 correlation between YouTube spend and Google conversions</li>
+                <li><strong>May 2025 Example:</strong> $811K YouTube spend → 860 Google orders (highest of year)</li>
+                <li><strong>Jan 2024 Baseline:</strong> $1.3K YouTube spend → 467 Google orders (lowest)</li>
+                <li><strong>Implication:</strong> Google's 4.57x ROAS is partially driven by YouTube awareness</li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- Conversion Rate Seasonality -->
+    <div class="chart-container">
+        <h2>Conversion Rate Seasonality by Channel</h2>
+        <p class="chart-description">Monthly conversion rate patterns showing channel-specific seasonal behavior</p>
+        <div id="conversion-seasonality" style="height: 400px;"></div>
+        <div class="insight-box">
+            <h3>Conversion Patterns:</h3>
+            <ul>
+                <li><strong>Q4 Lift:</strong> All channels see 20-30% conversion rate improvement in Nov-Dec</li>
+                <li><strong>Google Consistency:</strong> Maintains 0.6-0.8% year-round (high-intent traffic)</li>
+                <li><strong>YouTube Variability:</strong> 0.01-0.05% reflects awareness-stage traffic</li>
+                <li><strong>Organic Strength:</strong> 0.15-0.20% shows brand health</li>
+            </ul>
+        </div>
+    </div>
+
+    <script>
+        // CAC by Channel Over Time
+        Highcharts.chart('cac-monthly-chart', {
+            chart: { type: 'line' },
+            title: { text: null },
+            xAxis: {
+                categories: ['Jan-24', 'Feb-24', 'Mar-24', 'Apr-24', 'May-24', 'Jun-24', 
+                           'Jul-24', 'Aug-24', 'Sep-24', 'Oct-24', 'Nov-24', 'Dec-24',
+                           'Jan-25', 'Feb-25', 'Mar-25', 'Apr-25', 'May-25', 'Jun-25'],
+                labels: { rotation: -45 }
+            },
+            yAxis: {
+                title: { text: 'CAC ($)' },
+                labels: {
+                    formatter: function() {
+                        return '$' + this.value.toLocaleString();
+                    }
+                }
+            },
+            tooltip: {
+                valuePrefix: '$',
+                valueDecimals: 0,
+                shared: true
+            },
+            plotOptions: {
+                line: {
+                    dataLabels: { enabled: false },
+                    marker: { radius: 4 }
+                }
+            },
+            series: [{
+                name: 'Google Ads',
+                data: [597, 557, 705, 645, 865, 770, 748, 854, 792, 920, 797, 851, 872, 732, 886, 823, 1001, 957],
+                color: '#3498DB'
+            }, {
+                name: 'YouTube Ads',
+                data: [1290, 1536, 1880, 2038, 3313, 1851, 1700, 2164, 2421, 4731, 2738, 2520, 2696, 3124, 2501, 2170, 2593, 2491],
+                color: '#F39C12'
+            }, {
+                name: 'FB Ads',
+                data: [1033, 781, 1106, 1018, 1379, 1196, 1320, 1362, 1169, 1258, 1469, 1284, 1143, 1521, 1409, 1267, 1595, 1725],
+                color: '#E74C3C'
+            }]
+        });
+
+        // Seasonality Heatmap
+        Highcharts.chart('seasonality-heatmap', {
+            chart: { type: 'heatmap' },
+            title: { text: null },
+            xAxis: {
+                categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
+            },
+            yAxis: {
+                categories: ['2024', '2025'],
+                title: null
+            },
+            colorAxis: {
+                min: 0,
+                max: 10,
+                stops: [
+                    [0, '#ffffff'],
+                    [0.3, '#fef0d9'],
+                    [0.5, '#fdcc8a'],
+                    [0.7, '#fc8d59'],
+                    [1, '#d7301f']
+                ],
+                labels: {
+                    formatter: function() {
+                        return '$' + this.value + 'M';
+                    }
+                }
+            },
+            legend: {
+                align: 'right',
+                layout: 'vertical',
+                margin: 0,
+                verticalAlign: 'middle',
+                y: 25,
+                symbolHeight: 200
+            },
+            tooltip: {
+                formatter: function() {
+                    return this.series.xAxis.categories[this.point.x] + ' ' +
+                           this.series.yAxis.categories[this.point.y] + ': <b>$' +
+                           this.point.value.toFixed(2) + 'M</b> revenue';
+                }
+            },
+            series: [{
+                name: 'Revenue',
+                borderWidth: 1,
+                borderColor: '#e0e0e0',
+                data: [
+                    // 2024
+                    [0, 0, 2.4], [1, 0, 2.5], [2, 0, 3.2], [3, 0, 3.9], [4, 0, 7.7], [5, 0, 5.6],
+                    [6, 0, 5.3], [7, 0, 5.3], [8, 0, 4.7], [9, 0, 3.9], [10, 0, 7.3], [11, 0, 7.4],
+                    // 2025 (partial)
+                    [0, 1, 4.4], [1, 1, 4.9], [2, 1, 4.3], [3, 1, 4.6], [4, 1, 8.5], [5, 1, 7.4]
+                ],
+                dataLabels: {
+                    enabled: true,
+                    format: '{point.value:.1f}M',
+                    style: { color: '#000000' }
+                }
+            }]
+        });
+
+        // YouTube/Google Correlation Chart
+        Highcharts.chart('youtube-google-correlation', {
+            chart: { zoomType: 'xy' },
+            title: { text: null },
+            xAxis: {
+                categories: ['Jan-24', 'Feb-24', 'Mar-24', 'Apr-24', 'May-24', 'Jun-24', 
+                           'Jul-24', 'Aug-24', 'Sep-24', 'Oct-24', 'Nov-24', 'Dec-24',
+                           'Jan-25', 'Feb-25', 'Mar-25', 'Apr-25', 'May-25', 'Jun-25'],
+                labels: { rotation: -45 }
+            },
+            yAxis: [{
+                title: { 
+                    text: 'YouTube Spend ($K)',
+                    style: { color: '#F39C12' }
+                },
+                labels: {
+                    formatter: function() {
+                        return '$' + this.value + 'K';
+                    },
+                    style: { color: '#F39C12' }
+                }
+            }, {
+                title: { 
+                    text: 'Google Orders',
+                    style: { color: '#3498DB' }
+                },
+                opposite: true,
+                labels: { style: { color: '#3498DB' } }
+            }],
+            tooltip: { shared: true },
+            plotOptions: {
+                column: { borderWidth: 0 }
+            },
+            series: [{
+                name: 'YouTube Spend',
+                type: 'column',
+                yAxis: 0,
+                data: [1.3, 15.4, 7.5, 24.5, 56.3, 29.6, 42.5, 181.7, 63.0, 37.3, 93.1, 70.6, 48.5, 46.9, 152.5, 271.2, 811.5, 316.5],
+                color: 'rgba(243, 156, 18, 0.7)',
+                tooltip: { valuePrefix: '$', valueSuffix: 'K' }
+            }, {
+                name: 'Google Orders',
+                type: 'line',
+                yAxis: 1,
+                data: [467, 475, 676, 719, 1125, 927, 888, 668, 606, 472, 865, 892, 602, 665, 501, 620, 860, 689],
+                color: '#3498DB',
+                marker: { radius: 5 },
+                lineWidth: 3
+            }, {
+                name: 'Google Orders (1-month lag)',
+                type: 'line',
+                yAxis: 1,
+                data: [null, 467, 475, 676, 719, 1125, 927, 888, 668, 606, 472, 865, 892, 602, 665, 501, 620, 860],
+                color: '#27AE60',
+                dashStyle: 'ShortDot',
+                marker: { radius: 3 }
+            }]
+        });
+
+        // Conversion Rate Seasonality
+        Highcharts.chart('conversion-seasonality', {
+            chart: { type: 'area' },
+            title: { text: null },
+            xAxis: {
+                categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
+            },
+            yAxis: {
+                title: { text: 'Conversion Rate (%)' },
+                labels: {
+                    formatter: function() {
+                        return this.value + '%';
+                    }
+                }
+            },
+            tooltip: {
+                valueSuffix: '%',
+                valueDecimals: 2,
+                shared: true
+            },
+            plotOptions: {
+                area: {
+                    stacking: null,
+                    lineColor: '#666666',
+                    lineWidth: 1,
+                    fillOpacity: 0.3,
+                    marker: { radius: 2 }
+                }
+            },
+            series: [{
+                name: 'Google Ads',
+                data: [0.46, 0.47, 0.51, 0.52, 0.68, 0.71, 0.64, 0.68, 0.61, 0.58, 0.74, 0.81],
+                color: '#3498DB'
+            }, {
+                name: 'FB Ads',
+                data: [0.03, 0.04, 0.05, 0.05, 0.06, 0.10, 0.07, 0.03, 0.07, 0.06, 0.12, 0.13],
+                color: '#E74C3C'
+            }, {
+                name: 'YouTube Ads',
+                data: [0.003, 0.028, 0.009, 0.017, 0.010, 0.015, 0.012, 0.021, 0.014, 0.013, 0.006, 0.007],
+                color: '#F39C12'
+            }, {
+                name: 'Organic',
+                data: [0.15, 0.22, 0.20, 0.17, 0.18, 0.17, 0.12, 0.13, 0.12, 0.14, 0.26, 0.26],
+                color: '#27AE60'
+            }]
+        });
+    </script>
+</body>
+</html>

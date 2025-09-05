@@ -1,0 +1,596 @@
+{
+  "current_week": {
+    "period": "07/07 - 07/13",
+    "spend": 678408.0,
+    "orders": 859,
+    "bookings": 3564795.0,
+    "cac": 789.7648428405122
+  },
+  "previous_week": {
+    "period": "06/30 - 07/06",
+    "spend": 829136.0,
+    "orders": 1097,
+    "bookings": 4598045.0,
+    "cac": 755.8213309024612
+  },
+  "current_month": {
+    "period": "June 2025",
+    "spend": 2699717.0,
+    "orders": 3840,
+    "bookings": 15674165.0,
+    "cac": 703.0513020833333
+  },
+  "previous_month": {
+    "period": "May 2025",
+    "spend": 3437910.0,
+    "orders": 4376,
+    "bookings": 18411489.0,
+    "cac": 785.6284277879342
+  },
+  "recent_weekly_cac": [
+    {
+      "week": "2025-W21",
+      "spend": 720036.0,
+      "orders": 1024,
+      "bookings": 4407230.0,
+      "cac": 703.16015625,
+      "wow_change": -21.60459559779815
+    },
+    {
+      "week": "2025-W22",
+      "spend": 859426.0,
+      "orders": 1140,
+      "bookings": 4805253.0,
+      "cac": 753.8824561403509,
+      "wow_change": 7.213477532751034
+    },
+    {
+      "week": "2025-W23",
+      "spend": 648379.0,
+      "orders": 901,
+      "bookings": 3694730.0,
+      "cac": 719.6215316315205,
+      "wow_change": -4.544597666357153
+    },
+    {
+      "week": "2025-W24",
+      "spend": 580229.0,
+      "orders": 777,
+      "bookings": 3184211.0,
+      "cac": 746.7554697554698,
+      "wow_change": 3.7705845269014437
+    },
+    {
+      "week": "2025-W25",
+      "spend": 600446.0,
+      "orders": 854,
+      "bookings": 3425893.0,
+      "cac": 703.0983606557377,
+      "wow_change": -5.846238945397742
+    },
+    {
+      "week": "2025-W26",
+      "spend": 672387.0,
+      "orders": 974,
+      "bookings": 4024460.0,
+      "cac": 690.3357289527721,
+      "wow_change": -1.8151986147518007
+    },
+    {
+      "week": "2025-W27",
+      "spend": 829136.0,
+      "orders": 1097,
+      "bookings": 4598045.0,
+      "cac": 755.8213309024612,
+      "wow_change": 9.486051380975113
+    },
+    {
+      "week": "2025-W28",
+      "spend": 678408.0,
+      "orders": 859,
+      "bookings": 3564795.0,
+      "cac": 789.7648428405122,
+      "wow_change": 4.490943897749222
+    }
+  ],
+  "monthly_cac": [
+    {
+      "month": "2024-08",
+      "spend": 1893983.0,
+      "orders": 3334,
+      "bookings": 11646566.0,
+      "cac": 568.0812837432513,
+      "mom_change": -12.842331874140067
+    },
+    {
+      "month": "2024-09",
+      "spend": 1784066.0,
+      "orders": 2815,
+      "bookings": 9997755.0,
+      "cac": 633.7712255772647,
+      "mom_change": 11.563475811271818
+    },
+    {
+      "month": "2024-10",
+      "spend": 1504325.0,
+      "orders": 2247,
+      "bookings": 8241940.0,
+      "cac": 669.4815309301291,
+      "mom_change": 5.63457347252363
+    },
+    {
+      "month": "2024-11",
+      "spend": 2918373.0,
+      "orders": 4834,
+      "bookings": 17552907.0,
+      "cac": 603.7180388911875,
+      "mom_change": -9.82304798574124
+    },
+    {
+      "month": "2024-12",
+      "spend": 2007907.0,
+      "orders": 4261,
+      "bookings": 15342391.0,
+      "cac": 471.2290542126261,
+      "mom_change": -21.9455070320403
+    },
+    {
+      "month": "2025-01",
+      "spend": 1482448.0,
+      "orders": 2273,
+      "bookings": 8273662.0,
+      "cac": 652.1988561372635,
+      "mom_change": 38.40378692842248
+    },
+    {
+      "month": "2025-02",
+      "spend": 1545287.0,
+      "orders": 2611,
+      "bookings": 9271477.0,
+      "cac": 591.8372271160475,
+      "mom_change": -9.255095812144775
+    },
+    {
+      "month": "2025-03",
+      "spend": 1668573.0,
+      "orders": 2789,
+      "bookings": 9863277.0,
+      "cac": 598.2692721405522,
+      "mom_change": 1.0867929102478469
+    },
+    {
+      "month": "2025-04",
+      "spend": 1928805.0,
+      "orders": 2917,
+      "bookings": 10279102.0,
+      "cac": 661.2290023997258,
+      "mom_change": 10.523644317200098
+    },
+    {
+      "month": "2025-05",
+      "spend": 3437910.0,
+      "orders": 4376,
+      "bookings": 18411489.0,
+      "cac": 785.6284277879342,
+      "mom_change": 18.813364951739754
+    },
+    {
+      "month": "2025-06",
+      "spend": 2699717.0,
+      "orders": 3840,
+      "bookings": 15674165.0,
+      "cac": 703.0513020833333,
+      "mom_change": -10.510964571013604
+    },
+    {
+      "month": "2025-07",
+      "spend": 1398143.0,
+      "orders": 1793,
+      "bookings": 7506781.0,
+      "cac": 779.7785833798104,
+      "mom_change": 10.913468344218003
+    }
+  ],
+  "regional_orders": {
+    "regions": [
+      "US",
+      "EU",
+      "GB",
+      "CA",
+      "MX",
+      "AU",
+      "CH",
+      "ME",
+      "Other"
+    ],
+    "orders": [
+      5645,
+      615,
+      464,
+      304,
+      198,
+      191,
+      189,
+      187,
+      2
+    ]
+  },
+  "regional_growth": [
+    {
+      "region": "AU",
+      "growth": -32.16783216783217
+    },
+    {
+      "region": "CA",
+      "growth": -7.894736842105263
+    },
+    {
+      "region": "CH",
+      "growth": 19.791666666666664
+    },
+    {
+      "region": "EU",
+      "growth": -2.564102564102564
+    },
+    {
+      "region": "GB",
+      "growth": 17.2
+    },
+    {
+      "region": "ME",
+      "growth": -23.931623931623932
+    },
+    {
+      "region": "MX",
+      "growth": -61.111111111111114
+    },
+    {
+      "region": "Other",
+      "growth": -33.33333333333333
+    },
+    {
+      "region": "US",
+      "growth": -13.064259160913435
+    }
+  ],
+  "forecast_scenarios": [
+    {
+      "spend_increase_pct": 10.000000000000009,
+      "new_cac": 769.1745660323298,
+      "cac_increase_pct": 1.3824884792627001
+    },
+    {
+      "spend_increase_pct": 19.999999999999996,
+      "new_cac": 778.139304564175,
+      "cac_increase_pct": 2.564102564102555
+    },
+    {
+      "spend_increase_pct": 30.000000000000004,
+      "new_cac": 785.889696043898,
+      "cac_increase_pct": 3.5856573705179473
+    },
+    {
+      "spend_increase_pct": 50.0,
+      "new_cac": 798.6166546842849,
+      "cac_increase_pct": 5.263157894736836
+    },
+    {
+      "spend_increase_pct": 100.0,
+      "new_cac": 820.2008885946708,
+      "cac_increase_pct": 8.108108108108091
+    }
+  ],
+  "recent_summary": {
+    "current_week_period": "July 07 - July 13, 2025",
+    "current_month_name": "June 2025",
+    "comparison_month_name": "May 2025",
+    "latest_complete_week": "2025-07-13",
+    "analysis_note": "June shows seasonal decline compared to May's traditional surge in sales performance"
+  },
+  "upgrades_renewals": {
+    "upgrades": [
+      {
+        "date": "2025-06-15",
+        "orders": 19,
+        "bookings": 80456.0
+      },
+      {
+        "date": "2025-06-16",
+        "orders": 15,
+        "bookings": 57916.0
+      },
+      {
+        "date": "2025-06-17",
+        "orders": 23,
+        "bookings": 88186.0
+      },
+      {
+        "date": "2025-06-18",
+        "orders": 19,
+        "bookings": 60339.0
+      },
+      {
+        "date": "2025-06-19",
+        "orders": 17,
+        "bookings": 60946.0
+      },
+      {
+        "date": "2025-06-20",
+        "orders": 16,
+        "bookings": 62700.0
+      },
+      {
+        "date": "2025-06-21",
+        "orders": 12,
+        "bookings": 43851.0
+      },
+      {
+        "date": "2025-06-22",
+        "orders": 15,
+        "bookings": 50125.0
+      },
+      {
+        "date": "2025-06-23",
+        "orders": 15,
+        "bookings": 58579.0
+      },
+      {
+        "date": "2025-06-24",
+        "orders": 17,
+        "bookings": 63864.0
+      },
+      {
+        "date": "2025-06-25",
+        "orders": 17,
+        "bookings": 56831.0
+      },
+      {
+        "date": "2025-06-26",
+        "orders": 20,
+        "bookings": 71547.0
+      },
+      {
+        "date": "2025-06-27",
+        "orders": 19,
+        "bookings": 69226.0
+      },
+      {
+        "date": "2025-06-28",
+        "orders": 14,
+        "bookings": 57053.0
+      },
+      {
+        "date": "2025-06-29",
+        "orders": 21,
+        "bookings": 86697.0
+      },
+      {
+        "date": "2025-06-30",
+        "orders": 13,
+        "bookings": 45506.0
+      },
+      {
+        "date": "2025-07-01",
+        "orders": 23,
+        "bookings": 84630.0
+      },
+      {
+        "date": "2025-07-02",
+        "orders": 14,
+        "bookings": 49836.0
+      },
+      {
+        "date": "2025-07-03",
+        "orders": 26,
+        "bookings": 98995.0
+      },
+      {
+        "date": "2025-07-04",
+        "orders": 33,
+        "bookings": 131373.0
+      },
+      {
+        "date": "2025-07-05",
+        "orders": 24,
+        "bookings": 89918.0
+      },
+      {
+        "date": "2025-07-06",
+        "orders": 24,
+        "bookings": 88354.0
+      },
+      {
+        "date": "2025-07-07",
+        "orders": 19,
+        "bookings": 69653.0
+      },
+      {
+        "date": "2025-07-08",
+        "orders": 18,
+        "bookings": 70462.0
+      },
+      {
+        "date": "2025-07-09",
+        "orders": 10,
+        "bookings": 41555.0
+      },
+      {
+        "date": "2025-07-10",
+        "orders": 14,
+        "bookings": 54280.0
+      },
+      {
+        "date": "2025-07-11",
+        "orders": 16,
+        "bookings": 57860.0
+      },
+      {
+        "date": "2025-07-12",
+        "orders": 19,
+        "bookings": 64376.0
+      },
+      {
+        "date": "2025-07-13",
+        "orders": 16,
+        "bookings": 61866.0
+      },
+      {
+        "date": "2025-07-14",
+        "orders": 2,
+        "bookings": 8337.0
+      }
+    ],
+    "renewals": [
+      {
+        "date": "2025-06-15",
+        "orders": 0,
+        "bookings": 45711.0
+      },
+      {
+        "date": "2025-06-16",
+        "orders": 0,
+        "bookings": 37457.0
+      },
+      {
+        "date": "2025-06-17",
+        "orders": 0,
+        "bookings": 43863.0
+      },
+      {
+        "date": "2025-06-18",
+        "orders": 0,
+        "bookings": 40343.0
+      },
+      {
+        "date": "2025-06-19",
+        "orders": 0,
+        "bookings": 54044.0
+      },
+      {
+        "date": "2025-06-20",
+        "orders": 0,
+        "bookings": 51239.0
+      },
+      {
+        "date": "2025-06-21",
+        "orders": 0,
+        "bookings": 34168.0
+      },
+      {
+        "date": "2025-06-22",
+        "orders": 0,
+        "bookings": 42735.0
+      },
+      {
+        "date": "2025-06-23",
+        "orders": 0,
+        "bookings": 42392.0
+      },
+      {
+        "date": "2025-06-24",
+        "orders": 0,
+        "bookings": 39991.0
+      },
+      {
+        "date": "2025-06-25",
+        "orders": 0,
+        "bookings": 44732.0
+      },
+      {
+        "date": "2025-06-26",
+        "orders": 0,
+        "bookings": 47177.0
+      },
+      {
+        "date": "2025-06-27",
+        "orders": 0,
+        "bookings": 43670.0
+      },
+      {
+        "date": "2025-06-28",
+        "orders": 0,
+        "bookings": 47563.0
+      },
+      {
+        "date": "2025-06-29",
+        "orders": 0,
+        "bookings": 44719.0
+      },
+      {
+        "date": "2025-06-30",
+        "orders": 0,
+        "bookings": 45054.0
+      },
+      {
+        "date": "2025-07-01",
+        "orders": 0,
+        "bookings": 53204.0
+      },
+      {
+        "date": "2025-07-02",
+        "orders": 0,
+        "bookings": 54943.0
+      },
+      {
+        "date": "2025-07-03",
+        "orders": 0,
+        "bookings": 54877.0
+      },
+      {
+        "date": "2025-07-04",
+        "orders": 0,
+        "bookings": 69623.0
+      },
+      {
+        "date": "2025-07-05",
+        "orders": 0,
+        "bookings": 48249.0
+      },
+      {
+        "date": "2025-07-06",
+        "orders": 0,
+        "bookings": 54892.0
+      },
+      {
+        "date": "2025-07-07",
+        "orders": 0,
+        "bookings": 111069.0
+      },
+      {
+        "date": "2025-07-08",
+        "orders": 0,
+        "bookings": 92811.0
+      },
+      {
+        "date": "2025-07-09",
+        "orders": 0,
+        "bookings": 89205.0
+      },
+      {
+        "date": "2025-07-10",
+        "orders": 0,
+        "bookings": 83930.0
+      },
+      {
+        "date": "2025-07-11",
+        "orders": 0,
+        "bookings": 70077.0
+      },
+      {
+        "date": "2025-07-12",
+        "orders": 0,
+        "bookings": 54014.0
+      },
+      {
+        "date": "2025-07-13",
+        "orders": 0,
+        "bookings": 57102.0
+      },
+      {
+        "date": "2025-07-14",
+        "orders": 0,
+        "bookings": 16409.0
+      }
+    ]
+  }
+}
