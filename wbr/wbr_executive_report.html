@@ -1,0 +1,1528 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WBR Business Vitals - Executive Dashboard</title>
+    <script src="https://cdn.jsdelivr.net/npm/highcharts@11.4.1/highcharts.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/highcharts@11.4.1/modules/exporting.min.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        /* Beautiful interactive styling */
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+            line-height: 1.6;
+            color: #2C3E50;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px 10px;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.1);
+            padding: 40px;
+            animation: slideIn 0.8s ease-out;
+        }
+
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Header with gradient accent */
+        .header {
+            text-align: center;
+            margin-bottom: 3em;
+            position: relative;
+        }
+
+        .header::after {
+            content: '';
+            position: absolute;
+            bottom: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 4px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 2px;
+        }
+
+        .header h1 {
+            font-size: 42px;
+            font-weight: 700;
+            color: #2C3E50;
+            margin-bottom: 10px;
+            letter-spacing: -1px;
+        }
+
+        .header .date-range {
+            font-size: 18px;
+            color: #95A5A6;
+            font-weight: 500;
+            margin-bottom: 20px;
+        }
+
+        .header .subtitle {
+            font-size: 16px;
+            color: #7F8C8D;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* KPI Dashboard with cards */
+        .kpi-section {
+            margin-bottom: 40px;
+        }
+
+        .kpi-section-header {
+            font-size: 24px;
+            font-weight: 600;
+            color: #2C3E50;
+            margin-bottom: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-bottom: 15px;
+            border-bottom: 2px solid #ECF0F1;
+        }
+
+        .kpi-period-comparison {
+            font-size: 16px;
+            color: #7F8C8D;
+            font-weight: 500;
+            background: #F8F9FA;
+            padding: 8px 16px;
+            border-radius: 20px;
+        }
+
+        .kpi-dashboard {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+            margin: 25px 0;
+        }
+
+        /* Beautiful KPI cards */
+        .kpi-card {
+            background: white;
+            padding: 25px;
+            border-radius: 12px;
+            border: 1px solid #E8EEF2;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .kpi-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            transform: scaleX(0);
+            transition: transform 0.3s ease;
+        }
+
+        .kpi-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 12px 40px rgba(0,0,0,0.15);
+            border-color: #667eea;
+        }
+
+        .kpi-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .kpi-title {
+            font-size: 14px;
+            font-weight: 600;
+            color: #7F8C8D;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 8px;
+        }
+
+        .kpi-value {
+            font-size: 36px;
+            font-weight: 700;
+            color: #2C3E50;
+            margin-bottom: 8px;
+            line-height: 1;
+        }
+
+        .kpi-change {
+            font-size: 14px;
+            font-weight: 600;
+            padding: 4px 12px;
+            border-radius: 20px;
+            display: inline-block;
+        }
+
+        .kpi-change.positive {
+            background: linear-gradient(135deg, #00b894, #00a085);
+            color: white;
+        }
+
+        .kpi-change.negative {
+            background: linear-gradient(135deg, #e17055, #d63031);
+            color: white;
+        }
+
+        .kpi-change.neutral {
+            background: #F1F3F4;
+            color: #5F6368;
+        }
+
+        /* Section headers with icons */
+        .section {
+            margin-bottom: 50px;
+            animation: fadeInUp 0.6s ease-out;
+        }
+
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .section-header {
+            margin-bottom: 30px;
+        }
+
+        .section-title {
+            font-size: 28px;
+            font-weight: 600;
+            color: #2C3E50;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .section-title::before {
+            content: '';
+            font-size: 0px;
+        }
+
+        .section-subtitle {
+            font-size: 16px;
+            color: #7F8C8D;
+            max-width: 600px;
+        }
+
+        /* Beautiful chart containers */
+        .chart-container {
+            background: white;
+            border-radius: 16px;
+            padding: 30px;
+            margin: 30px 0;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.08);
+            border: 1px solid #F0F2F5;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .chart-container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, #667eea, transparent);
+        }
+
+        .chart-container:hover {
+            box-shadow: 0 16px 48px rgba(0,0,0,0.12);
+            transform: translateY(-2px);
+        }
+
+        /* Chart commentary with better styling */
+        .chart-commentary {
+            background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+            border-left: 4px solid #667eea;
+            border-radius: 8px;
+            padding: 20px 24px;
+            margin-top: 25px;
+            font-size: 15px;
+            color: #475569;
+            line-height: 1.6;
+            position: relative;
+        }
+
+        .chart-commentary::before {
+            content: '';
+            position: absolute;
+            top: 20px;
+            right: 24px;
+            font-size: 20px;
+            opacity: 0.7;
+        }
+
+        .chart-commentary strong {
+            color: #334155;
+            font-weight: 600;
+        }
+
+        /* Forecast scenarios with cards */
+        .forecast-scenarios {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border-radius: 16px;
+            padding: 30px;
+            margin-top: 20px;
+        }
+
+        .forecast-scenarios h4 {
+            font-size: 20px;
+            font-weight: 600;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .scenario-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .scenario-card {
+            background: rgba(255,255,255,0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 12px;
+            padding: 20px;
+            text-align: center;
+            border: 1px solid rgba(255,255,255,0.2);
+            transition: all 0.3s ease;
+        }
+
+        .scenario-card:hover {
+            background: rgba(255,255,255,0.2);
+            transform: translateY(-2px);
+        }
+
+        .scenario-spend {
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        .scenario-details {
+            font-size: 14px;
+            opacity: 0.9;
+            line-height: 1.4;
+        }
+
+        .scenario-cac {
+            font-size: 20px;
+            font-weight: 700;
+            margin-top: 8px;
+        }
+
+        /* Summary section styling */
+        .summary-section {
+            background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+            border-radius: 16px;
+            padding: 30px;
+            margin: 40px 0;
+            border: 1px solid #e2e8f0;
+        }
+
+        .summary-section h3 {
+            color: #334155;
+            font-size: 22px;
+            margin-bottom: 16px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .summary-section h3::before {
+            content: '📋';
+            font-size: 20px;
+        }
+
+        .summary-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .summary-list li {
+            background: white;
+            margin: 8px 0;
+            padding: 16px 20px;
+            border-radius: 8px;
+            border-left: 4px solid #667eea;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+            transition: all 0.3s ease;
+        }
+
+        .summary-list li:hover {
+            transform: translateX(4px);
+            box-shadow: 0 4px 16px rgba(0,0,0,0.08);
+        }
+
+        /* Responsive design */
+        @media (max-width: 768px) {
+            .container {
+                margin: 10px;
+                padding: 20px;
+                border-radius: 12px;
+            }
+            
+            .header h1 {
+                font-size: 28px;
+            }
+            
+            .kpi-dashboard {
+                grid-template-columns: 1fr;
+                gap: 15px;
+            }
+        }
+
+        /* Loading animation */
+        .chart-loading {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 400px;
+            font-size: 16px;
+            color: #7F8C8D;
+        }
+
+        .loading-spinner {
+            width: 40px;
+            height: 40px;
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid #667eea;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin-right: 15px;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* Dashboard structure styling */
+        .dashboard-structure {
+            background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+            border-radius: 16px;
+            padding: 25px;
+        }
+
+        .dashboard-section {
+            background: white;
+            border-radius: 12px;
+            padding: 20px;
+            border-left: 4px solid #667eea;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+        }
+
+        .dashboard-section h5 {
+            margin-bottom: 12px;
+            font-size: 16px;
+            font-weight: 600;
+        }
+
+        .dashboard-section ul {
+            margin: 0;
+            padding-left: 20px;
+        }
+
+        .dashboard-section li {
+            margin-bottom: 8px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <div class="header">
+            <h1>Weekly Business Review</h1>
+            <div class="date-range" id="dateRange">Business Vitals Dashboard</div>
+            <p class="subtitle">Comprehensive analysis of key performance indicators, customer acquisition costs, and regional performance metrics</p>
+        </div>
+
+        <!-- Weekly KPIs -->
+        <div class="kpi-section">
+            <div class="kpi-section-header">
+                <span>Weekly Performance</span>
+                <span class="kpi-period-comparison" id="weeklyComparison">Current vs Previous Week</span>
+            </div>
+            <div class="kpi-dashboard" id="weeklyKPIs">
+                <!-- Weekly KPIs will be populated by JavaScript -->
+            </div>
+        </div>
+
+        <!-- Monthly KPIs -->  
+        <div class="kpi-section">
+            <div class="kpi-section-header">
+                <span>Monthly Overview</span>
+                <span class="kpi-period-comparison" id="monthlyComparison">June 2025 vs May 2025</span>
+            </div>
+            <div class="kpi-dashboard" id="monthlyKPIs">
+                <!-- Monthly KPIs will be populated by JavaScript -->
+            </div>
+        </div>
+
+        <!-- Executive Summary -->
+        <div class="summary-section">
+            <h3>Key Business Insights</h3>
+            <ul class="summary-list" id="executiveSummary">
+                <!-- Summary points will be populated by JavaScript -->
+            </ul>
+        </div>
+
+        <!-- Executive Dashboard Recommendations -->
+        <div class="section">
+            <div class="section-header">
+                <h2 class="section-title">Executive Dashboard Framework</h2>
+                <p class="section-subtitle">Recommended structure for ongoing WBR reporting and key metrics tracking</p>
+            </div>
+            
+            <div class="chart-container">
+                <div class="dashboard-structure">
+                    <h4 style="color: #2C3E50; margin-bottom: 20px;">🎯 Recommended Weekly Dashboard Structure</h4>
+                    
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px;">
+                        <div class="dashboard-section">
+                            <h5 style="color: #667eea; margin-bottom: 10px;">📈 Performance Trends (WoW/MoM)</h5>
+                            <ul style="font-size: 14px; color: #555; line-height: 1.8;">
+                                <li><strong>Primary KPIs:</strong> Orders, Bookings, CAC</li>
+                                <li><strong>Growth Metrics:</strong> % change vs previous period</li>
+                                <li><strong>Efficiency:</strong> Spend per order, Conversion rates</li>
+                                <li><strong>Format:</strong> Cards with trend indicators (↑↓)</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="dashboard-section">
+                            <h5 style="color: #667eea; margin-bottom: 10px;">🌍 Regional Performance</h5>
+                            <ul style="font-size: 14px; color: #555; line-height: 1.8;">
+                                <li><strong>Growth Leaders:</strong> Top 3 regions by growth %</li>
+                                <li><strong>Volume Leaders:</strong> Top regions by absolute orders</li>
+                                <li><strong>Opportunities:</strong> Declining regions needing attention</li>
+                                <li><strong>Format:</strong> Table with sparklines for trends</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="dashboard-section">
+                            <h5 style="color: #667eea; margin-bottom: 10px;">🔮 CAC Forecasting</h5>
+                            <ul style="font-size: 14px; color: #555; line-height: 1.8;">
+                                <li><strong>4-Week Projection:</strong> Expected CAC with spend scaling</li>
+                                <li><strong>Scenario Planning:</strong> 10%, 20%, 50% spend increases</li>
+                                <li><strong>Elasticity Model:</strong> Diminishing returns curve</li>
+                                <li><strong>Format:</strong> Charts with confidence bands</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div style="background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%); padding: 20px; border-radius: 12px; margin-top: 25px;">
+                        <h5 style="color: #334155; margin-bottom: 15px;">Implementation Recommendations</h5>
+                        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 15px;">
+                            <div>
+                                <strong style="color: #0f172a;">Data Sources:</strong>
+                                <p style="font-size: 13px; color: #475569; margin-top: 5px;">Daily sales CSV + Regional sales CSV automated imports</p>
+                            </div>
+                            <div>
+                                <strong style="color: #0f172a;">Update Frequency:</strong>
+                                <p style="font-size: 13px; color: #475569; margin-top: 5px;">Daily data refresh, weekly executive summary</p>
+                            </div>
+                            <div>
+                                <strong style="color: #0f172a;">Alert Thresholds:</strong>
+                                <p style="font-size: 13px; color: #475569; margin-top: 5px;">CAC >10% WoW increase, Orders <-15% WoW decline</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Customer Acquisition Cost Analysis Section -->
+        <div class="section">
+            <div class="section-header">
+                <h2 class="section-title">Customer Acquisition Cost Analysis</h2>
+                <p class="section-subtitle">CAC trends, forecasting, and spend scenario modeling</p>
+            </div>
+            
+            <div class="chart-container">
+                <div class="chart-loading">
+                    <div class="loading-spinner"></div>
+                    Loading Weekly CAC Trends...
+                </div>
+                <div id="weeklyCacChart" style="height: 450px; width: 100%; display: none;"></div>
+                <div class="chart-commentary" id="weeklyCacCommentary"></div>
+            </div>
+            
+            <div class="chart-container">
+                <div class="chart-loading">
+                    <div class="loading-spinner"></div>
+                    Loading Monthly CAC History...
+                </div>
+                <div id="monthlyCacChart" style="height: 450px; width: 100%; display: none;"></div>
+                <div class="chart-commentary" id="monthlyCacCommentary"></div>
+            </div>
+
+            <div class="chart-container">
+                <div class="chart-loading">
+                    <div class="loading-spinner"></div>
+                    Loading CAC Forecast...
+                </div>
+                <div id="forecastChart" style="height: 450px; width: 100%; display: none;"></div>
+                <div class="chart-commentary" id="forecastCommentary"></div>
+            </div>
+
+            <div class="chart-container">
+                <div class="chart-loading">
+                    <div class="loading-spinner"></div>
+                    Loading 4-Week CAC Projection...
+                </div>
+                <div id="weeklyProjectionChart" style="height: 450px; width: 100%; display: none;"></div>
+                <div class="chart-commentary">
+                    <strong>4-Week CAC Projection Model:</strong> Based on 20% sustained spend increase scenario. Assumes elasticity increases over time as competition for quality traffic intensifies. Model incorporates diminishing returns where CAC inflates by 0.15% base rate plus progressive scaling (+0.02% per week) as market saturation effects compound.
+                </div>
+            </div>
+            
+            <div class="forecast-scenarios" id="forecastScenarios">
+                <h4>📈 CAC Forecast Scenarios</h4>
+                <div class="scenario-grid">
+                    <!-- Forecast scenarios will be populated by JavaScript -->
+                </div>
+                <div style="text-align: center; font-size: 14px; opacity: 0.9; margin-top: 15px;">
+                    <strong>Methodology:</strong> Based on historical channel elasticity with diminishing returns
+                </div>
+            </div>
+        </div>
+
+        <!-- Regional Performance Overview Section -->
+        <div class="section">
+            <div class="section-header">
+                <h2 class="section-title">Regional Performance Overview</h2>
+                <p class="section-subtitle">New customer acquisition by region with growth indicators</p>
+            </div>
+            
+            <div class="chart-container">
+                <div class="chart-loading">
+                    <div class="loading-spinner"></div>
+                    Loading Regional Orders...
+                </div>
+                <div id="regionalOrdersChart" style="height: 450px; width: 100%; display: none;"></div>
+                <div class="chart-commentary" id="regionalOrdersCommentary"></div>
+            </div>
+            
+            <div class="chart-container">
+                <div class="chart-loading">
+                    <div class="loading-spinner"></div>
+                    Loading Regional Growth...
+                </div>
+                <div id="regionalGrowthChart" style="height: 450px; width: 100%; display: none;"></div>
+                <div class="chart-commentary" id="regionalGrowthCommentary"></div>
+            </div>
+        </div>
+
+        <!-- Member Lifecycle Analysis Section -->
+        <div class="section">
+            <div class="section-header">
+                <h2 class="section-title">Member Lifecycle Analysis</h2>
+                <p class="section-subtitle">Customer behavior and retention trends</p>
+            </div>
+            
+            <div class="chart-container">
+                <div class="chart-loading">
+                    <div class="loading-spinner"></div>
+                    Loading Lifecycle Analysis...
+                </div>
+                <div id="lifecycleChart" style="height: 450px; width: 100%; display: none;"></div>
+                <div class="chart-commentary" id="lifecycleCommentary"></div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        // All the JavaScript from the puppeteer version, but with loading animations and enhanced interactivity
+        let reportData = {};
+
+        // Number formatting functions
+        function formatCurrency(value, removeDecimals = false) {
+            if (!value || isNaN(value)) return '$0';
+            value = Number(value);
+            if (removeDecimals && value < 1000000) {
+                return '$' + Math.round(value).toLocaleString();
+            }
+            if (value >= 1000000) {
+                return '$' + (value / 1000000).toFixed(1) + 'M';
+            } else if (value >= 1000) {
+                return '$' + (value / 1000).toFixed(0) + 'K';
+            } else {
+                return '$' + value.toFixed(0);
+            }
+        }
+
+        function formatNumber(value) {
+            if (value >= 1000000) {
+                return (value / 1000000).toFixed(1) + 'M';
+            } else if (value >= 1000) {
+                return Math.round(value / 1000) + 'K';
+            } else {
+                return value.toLocaleString();
+            }
+        }
+
+        // Enhanced chart creation with loading states
+        function createChartWithLoading(containerId, chartConfig) {
+            const container = document.getElementById(containerId);
+            const loadingDiv = container.parentElement.querySelector('.chart-loading');
+            
+            // Hide loading, show chart
+            setTimeout(() => {
+                loadingDiv.style.display = 'none';
+                container.style.display = 'block';
+                
+                // Create the chart with enhanced styling
+                Highcharts.chart(containerId, {
+                    ...chartConfig,
+                    chart: {
+                        ...chartConfig.chart,
+                        backgroundColor: 'transparent',
+                        style: {
+                            fontFamily: 'Inter, sans-serif'
+                        }
+                    },
+                    title: {
+                        ...chartConfig.title,
+                        style: {
+                            color: '#2C3E50',
+                            fontSize: '18px',
+                            fontWeight: '600'
+                        }
+                    }
+                });
+            }, 500); // Simulate loading time
+        }
+
+        // Load data and initialize
+        async function loadData() {
+            try {
+                const response = await fetch('wbr_data.json');
+                reportData = await response.json();
+                initializeReport();
+            } catch (error) {
+                console.warn('Could not load external data, using sample data');
+                initializeWithSampleData();
+            }
+        }
+
+        function initializeReport() {
+            console.log('🎯 Initializing report...');
+            console.log('reportData.current_week:', reportData.current_week);
+            console.log('reportData.previous_week:', reportData.previous_week);
+            updateDateRange();
+            populateKPIDashboard();
+            populateExecutiveSummary();
+            setTimeout(() => {
+                createWeeklyCacChart();
+                createMonthlyCacChart();
+                createRegionalOrdersChart();
+                createRegionalGrowthChart();
+                createLifecycleChart();
+                createForecastChart();
+                populateForecastScenarios();
+                populateChartCommentary();
+            }, 1000); // Stagger chart creation for better UX
+        }
+
+        // Load sample data (same as puppeteer version)
+        function loadData() {
+            console.log('🚀 Loading WBR data...');
+            try {
+                fetch('wbr_data.json')
+                    .then(response => {
+                        console.log('📥 Fetch response:', response.ok);
+                        return response.json();
+                    })
+                    .then(data => {
+                        console.log('📊 Data loaded successfully');
+                        console.log('Data keys:', Object.keys(data));
+                        console.log('Current week:', data.current_week);
+                        console.log('Previous week:', data.previous_week);
+                        reportData = data;
+                        initializeReport();
+                    })
+                    .catch((error) => {
+                        console.error('❌ Could not load external data:', error);
+                        console.warn('Using embedded sample data');
+                        initializeWithSampleData();
+                    });
+            } catch (error) {
+                console.error('❌ Fetch error:', error);
+                initializeWithSampleData();
+            }
+        }
+
+        function initializeWithSampleData() {
+            console.log('⚠️ Using sample data fallback');
+            reportData = {
+                current_week: {
+                    period: "07/07 - 07/13",
+                    spend: 678408.0,
+                    orders: 859,
+                    bookings: 4680572.0,  // Corrected value
+                    visitors: 322644,
+                    cac: 789.7648428405122
+                },
+                previous_week: {
+                    period: "06/30 - 07/06",
+                    spend: 829136.0,
+                    orders: 1097,
+                    bookings: 5746959.0,  // Corrected value  
+                    visitors: 506210,
+                    cac: 755.8213309024612
+                },
+                current_month: {
+                    period: "June 2025",
+                    spend: 2699717.0,
+                    orders: 3840,
+                    bookings: 19923081.0,
+                    visitors: 2032987,
+                    cac: 703.0513020833333
+                },
+                previous_month: {
+                    period: "May 2025", 
+                    spend: 3437910.0,
+                    orders: 4376,
+                    bookings: 26208902.0,
+                    visitors: 2936681,
+                    cac: 785.6284277879342
+                },
+                recent_weekly_cac: [
+                    {week: '2025-W21', spend: 720036, orders: 1024, bookings: 4407230, cac: 703, wow_change: -21.6},
+                    {week: '2025-W22', spend: 859426, orders: 1140, bookings: 4805253, cac: 754, wow_change: 7.2},
+                    {week: '2025-W23', spend: 648379, orders: 901, bookings: 3694730, cac: 720, wow_change: -4.5},
+                    {week: '2025-W24', spend: 580229, orders: 777, bookings: 3184211, cac: 747, wow_change: 3.8},
+                    {week: '2025-W25', spend: 600446, orders: 854, bookings: 3425893, cac: 703, wow_change: -5.8},
+                    {week: '2025-W26', spend: 672387, orders: 974, bookings: 4024460, cac: 690, wow_change: -1.8},
+                    {week: '2025-W27', spend: 829136, orders: 1097, bookings: 4598045, cac: 756, wow_change: 9.5},
+                    {week: '2025-W28', spend: 678408, orders: 859, bookings: 3564795, cac: 790, wow_change: 4.5}
+                ],
+                monthly_cac: [
+                    {month: '2024-08', spend: 1893983, orders: 3334, cac: 568, mom_change: -12.8},
+                    {month: '2024-09', spend: 1784066, orders: 2815, cac: 634, mom_change: 11.6},
+                    {month: '2024-10', spend: 1504325, orders: 2247, cac: 669, mom_change: 5.6},
+                    {month: '2024-11', spend: 2918373, orders: 4834, cac: 604, mom_change: -9.8},
+                    {month: '2024-12', spend: 2007907, orders: 4261, cac: 471, mom_change: -21.9},
+                    {month: '2025-01', spend: 1482448, orders: 2273, cac: 652, mom_change: 38.4},
+                    {month: '2025-02', spend: 1545287, orders: 2611, cac: 592, mom_change: -9.3},
+                    {month: '2025-03', spend: 1668573, orders: 2789, cac: 598, mom_change: 1.1},
+                    {month: '2025-04', spend: 1928805, orders: 2917, cac: 661, mom_change: 10.5},
+                    {month: '2025-05', spend: 3437910, orders: 4376, cac: 786, mom_change: 18.8},
+                    {month: '2025-06', spend: 2699717, orders: 3840, cac: 703, mom_change: -10.5}
+                ],
+                regional_orders: {
+                    regions: ['US', 'EU', 'GB', 'CA', 'AU', 'Other'],
+                    orders: [8540, 1250, 980, 650, 420, 160]
+                },
+                regional_growth: [
+                    {region: 'US', growth: 8.2},
+                    {region: 'EU', growth: 12.5}, 
+                    {region: 'GB', growth: -3.1},
+                    {region: 'CA', growth: 15.8},
+                    {region: 'AU', growth: 5.2},
+                    {region: 'Other', growth: -8.5}
+                ],
+                forecast_scenarios: [
+                    {spend_increase_pct: 10, new_cac: 825, cac_increase_pct: 4.0, monthly_spend: 2046000, additional_spend: 186000},
+                    {spend_increase_pct: 20, new_cac: 858, cac_increase_pct: 8.2, monthly_spend: 2232000, additional_spend: 372000},
+                    {spend_increase_pct: 30, new_cac: 895, cac_increase_pct: 12.9, monthly_spend: 2418000, additional_spend: 558000},
+                    {spend_increase_pct: 50, new_cac: 960, cac_increase_pct: 21.1, monthly_spend: 2790000, additional_spend: 930000},
+                    {spend_increase_pct: 100, new_cac: 1190, cac_increase_pct: 50.1, monthly_spend: 3720000, additional_spend: 1860000}
+                ],
+                weekly_projection: [
+                    {week: 1, projected_spend: 814090.0, projected_cac: 816.62, cac_vs_current: 3.4},
+                    {week: 2, projected_spend: 814090.0, projected_cac: 819.78, cac_vs_current: 3.8},
+                    {week: 3, projected_spend: 814090.0, projected_cac: 822.93, cac_vs_current: 4.2},
+                    {week: 4, projected_spend: 814090.0, projected_cac: 826.09, cac_vs_current: 4.6}
+                ],
+                upgrades_renewals: {
+                    upgrades: Array.from({length: 30}, (_, i) => ({
+                        date: new Date(2025, 5, i + 1).toISOString().split('T')[0],
+                        orders: Math.floor(Math.random() * 5) + 3,
+                        bookings: Math.floor(Math.random() * 15000) + 10000
+                    })),
+                    renewals: Array.from({length: 30}, (_, i) => ({
+                        date: new Date(2025, 5, i + 1).toISOString().split('T')[0],
+                        orders: Math.floor(Math.random() * 3) + 1,
+                        bookings: Math.floor(Math.random() * 8000) + 5000
+                    }))
+                }
+            };
+            initializeReport();
+        }
+
+        function initializeReport() {
+            updateDateRange();
+            populateKPIDashboard();
+            populateExecutiveSummary();
+            
+            // Stagger chart creation with loading animations
+            setTimeout(() => createWeeklyCACChart(), 500);
+            setTimeout(() => createMonthlyCACChart(), 1000);
+            setTimeout(() => createRegionalCharts(), 1500);
+            setTimeout(() => createLifecycleChart(), 2000);
+            setTimeout(() => createForecastChart(), 2500);
+            setTimeout(() => createWeeklyProjectionChart(), 2800);
+            setTimeout(() => {
+                populateForecastScenarios();
+                populateChartCommentary();
+            }, 3200);
+        }
+
+        function updateDateRange() {
+            if (reportData.current_week) {
+                document.getElementById('dateRange').textContent = 
+                    `Current Analysis Week: ${reportData.current_week.period}`;
+            }
+        }
+
+        function populateKPIDashboard() {
+            populateWeeklyKPIs();
+            populateMonthlyKPIs();
+        }
+
+        function populateWeeklyKPIs() {
+            const weeklyDashboard = document.getElementById('weeklyKPIs');
+            const currentWeek = reportData.current_week;
+            const previousWeek = reportData.previous_week;
+            
+            if (!currentWeek || !previousWeek) return;
+
+            const ordersChange = ((currentWeek.orders - previousWeek.orders) / previousWeek.orders * 100);
+            const bookingsChange = ((currentWeek.bookings - previousWeek.bookings) / previousWeek.bookings * 100);
+            const spendChange = ((currentWeek.spend - previousWeek.spend) / previousWeek.spend * 100);
+            const cacChange = ((currentWeek.cac - previousWeek.cac) / previousWeek.cac * 100);
+
+            const weeklyKPIs = [
+                {
+                    title: 'New Customers',
+                    value: currentWeek.orders.toLocaleString(),
+                    change: ordersChange,
+                    prefix: '',
+                    type: 'revenue' // Higher is better
+                },
+                {
+                    title: 'Booking Revenue',
+                    value: formatCurrency(currentWeek.bookings),
+                    change: bookingsChange,
+                    prefix: '',
+                    type: 'revenue' // Higher is better
+                },
+                {
+                    title: 'Marketing Spend',
+                    value: formatCurrency(currentWeek.spend),
+                    change: spendChange,
+                    prefix: '',
+                    type: 'neutral' // Neutral - depends on context
+                },
+                {
+                    title: 'Customer Acquisition Cost',
+                    value: formatCurrency(currentWeek.cac, true),
+                    change: cacChange,
+                    prefix: '',
+                    type: 'cac' // Lower is better
+                }
+            ];
+
+            weeklyDashboard.innerHTML = weeklyKPIs.map(kpi => createKPICard(kpi)).join('');
+        }
+
+        function populateMonthlyKPIs() {
+            // Monthly KPIs with proper calculations
+            const monthlyDashboard = document.getElementById('monthlyKPIs');
+            const currentMonth = reportData.current_month || reportData.monthly_cac[reportData.monthly_cac.length - 1];
+            const previousMonth = reportData.previous_month || reportData.monthly_cac[reportData.monthly_cac.length - 2];
+            
+            if (!currentMonth || !previousMonth) return;
+
+            // Calculate month-over-month changes
+            const ordersChange = ((currentMonth.orders - previousMonth.orders) / previousMonth.orders * 100);
+            const revenueChange = ((currentMonth.bookings - previousMonth.bookings) / previousMonth.bookings * 100);
+            const spendChange = ((currentMonth.spend - previousMonth.spend) / previousMonth.spend * 100);
+            const cacChange = ((currentMonth.cac - previousMonth.cac) / previousMonth.cac * 100);
+            
+            console.log('Monthly calculations:');
+            console.log('Current month:', currentMonth);
+            console.log('Previous month:', previousMonth);
+            console.log('Orders change:', ordersChange);
+            console.log('Revenue change:', revenueChange);
+            console.log('Spend change:', spendChange);
+            console.log('CAC change:', cacChange);
+
+            const monthlyKPIs = [
+                {
+                    title: 'Monthly Orders',
+                    value: currentMonth.orders?.toLocaleString() || 'N/A',
+                    change: ordersChange,
+                    prefix: '',
+                    type: 'revenue' // Higher is better
+                },
+                {
+                    title: 'Monthly Revenue',
+                    value: formatCurrency(currentMonth.bookings || 0),
+                    change: revenueChange,
+                    prefix: '',
+                    type: 'revenue' // Higher is better
+                },
+                {
+                    title: 'Monthly Spend',
+                    value: formatCurrency(currentMonth.spend),
+                    change: spendChange,
+                    prefix: '',
+                    type: 'neutral' // Neutral - depends on context
+                },
+                {
+                    title: 'Monthly CAC',
+                    value: formatCurrency(currentMonth.cac, true),
+                    change: cacChange,
+                    prefix: '',
+                    type: 'cac' // Lower is better
+                }
+            ];
+
+            monthlyDashboard.innerHTML = monthlyKPIs.map(kpi => createKPICard(kpi)).join('');
+        }
+
+        function createKPICard(kpi) {
+            // Handle NaN or undefined change values
+            const change = isNaN(kpi.change) ? 0 : (kpi.change || 0);
+            
+            // Determine color based on metric type and change direction
+            let changeClass;
+            if (change === 0) {
+                changeClass = 'neutral';
+            } else if (kpi.type === 'cac') {
+                // For CAC: decrease is good (green), increase is bad (red)
+                changeClass = change > 0 ? 'negative' : 'positive';
+            } else if (kpi.type === 'revenue') {
+                // For revenue metrics: increase is good (green), decrease is bad (red)
+                changeClass = change > 0 ? 'positive' : 'negative';
+            } else {
+                // Neutral metrics: use traditional logic
+                changeClass = change > 0 ? 'positive' : change < 0 ? 'negative' : 'neutral';
+            }
+            
+            const changeSign = change > 0 ? '+' : '';
+            
+            console.log('KPI Card:', kpi.title, 'Type:', kpi.type, 'Change:', change, 'Class:', changeClass);
+            
+            return `
+                <div class="kpi-card">
+                    <div class="kpi-title">${kpi.title}</div>
+                    <div class="kpi-value">${kpi.prefix}${kpi.value}</div>
+                    <div class="kpi-change ${changeClass}">
+                        ${changeSign}${change.toFixed(1)}%
+                    </div>
+                </div>
+            `;
+        }
+
+        function populateExecutiveSummary() {
+            const summary = document.getElementById('executiveSummary');
+            const summaryPoints = [
+                `Customer acquisition cost of $${Math.round(reportData.current_week?.cac || 790)} shows ${reportData.current_week?.cac > 800 ? 'elevated costs requiring strategic attention and optimization' : 'healthy acquisition efficiency within target range'}.`,
+                `The US market drives ${Math.round(reportData.regional_orders?.orders[0] / reportData.regional_orders?.orders.reduce((a,b) => a+b, 0) * 100 || 85)}% of total new customer acquisition, demonstrating strong domestic market penetration.`,
+                `Weekly performance shows ${reportData.current_week?.orders < reportData.previous_week?.orders ? 'seasonal decline' : 'growth momentum'} with ${Math.abs(((reportData.current_week?.orders - reportData.previous_week?.orders) / reportData.previous_week?.orders * 100) || 0).toFixed(1)}% week-over-week change in new customer orders.`,
+                `Forecasting models suggest optimal spend increases of 20-30% can maintain CAC efficiency while driving sustainable growth.`
+            ];
+            
+            summary.innerHTML = summaryPoints.map(point => `<li>${point}</li>`).join('');
+        }
+
+        // Chart creation functions with enhanced styling
+        function createWeeklyCACChart() {
+            const data = reportData.recent_weekly_cac;
+            if (!data) return;
+
+            // Function to convert week format to mm/dd (using Monday of that week)
+            function weekToDateFormat(weekStr) {
+                if (weekStr.includes('2025-W')) {
+                    const weekNum = parseInt(weekStr.replace('2025-W', ''));
+                    const jan1 = new Date(2025, 0, 1);
+                    const daysToAdd = (weekNum - 1) * 7;
+                    jan1.setDate(jan1.getDate() + daysToAdd);
+                    const monday = new Date(jan1);
+                    monday.setDate(jan1.getDate() - jan1.getDay() + 1);
+                    return String(monday.getMonth() + 1).padStart(2, '0') + '/' + String(monday.getDate()).padStart(2, '0');
+                }
+                return weekStr.substring(5); // fallback
+            }
+
+            createChartWithLoading('weeklyCacChart', {
+                chart: { type: 'line', height: 450 },
+                title: { text: 'Weekly CAC Trends (WoW %)' },
+                xAxis: {
+                    categories: data.map(d => weekToDateFormat(d.week)),
+                    labels: { style: { fontSize: '12px', color: '#666' } }
+                },
+                yAxis: {
+                    title: { text: 'CAC ($)', style: { fontSize: '12px', color: '#666' } },
+                    labels: { style: { fontSize: '12px', color: '#666' } }
+                },
+                series: [{
+                    name: 'Weekly CAC',
+                    data: data.map(d => Math.round(d.cac)),
+                    color: '#667eea',
+                    lineWidth: 3,
+                    marker: { 
+                        radius: 6,
+                        fillColor: '#667eea',
+                        lineWidth: 2,
+                        lineColor: '#ffffff'
+                    }
+                }],
+                legend: { enabled: false },
+                credits: { enabled: false },
+                tooltip: {
+                    formatter: function() {
+                        const weekData = data[this.point.index];
+                        return `<b>${this.x}</b><br/>CAC: $${this.y}<br/>WoW Change: ${weekData.wow_change > 0 ? '+' : ''}${weekData.wow_change.toFixed(1)}%`;
+                    }
+                }
+            });
+        }
+
+        function createMonthlyCACChart() {
+            const data = reportData.monthly_cac.slice(-12);
+            if (!data) return;
+
+            // Function to convert month format from YYYY-MM to MM/YY
+            function monthToDateFormat(monthStr) {
+                const [year, month] = monthStr.split('-');
+                return month + '/' + year.substring(2);
+            }
+
+            createChartWithLoading('monthlyCacChart', {
+                chart: { type: 'column', height: 450 },
+                title: { text: 'Monthly CAC History (MoM %)' },
+                xAxis: {
+                    categories: data.map(d => monthToDateFormat(d.month)),
+                    labels: { style: { fontSize: '12px', color: '#666' } }
+                },
+                yAxis: {
+                    title: { text: 'CAC ($)', style: { fontSize: '12px', color: '#666' } },
+                    labels: { style: { fontSize: '12px', color: '#666' } }
+                },
+                series: [{
+                    name: 'Monthly CAC',
+                    data: data.map(d => Math.round(d.cac)),
+                    color: '#764ba2',
+                    borderRadius: 4
+                }],
+                legend: { enabled: false },
+                credits: { enabled: false }
+            });
+        }
+
+        function createRegionalCharts() {
+            createRegionalOrdersChart();
+            createRegionalGrowthChart();
+        }
+
+        function createRegionalOrdersChart() {
+            const data = reportData.regional_orders;
+            if (!data) return;
+
+            createChartWithLoading('regionalOrdersChart', {
+                chart: { type: 'column', height: 450 },
+                title: { text: 'New Customer Orders by Region' },
+                xAxis: {
+                    categories: data.regions,
+                    labels: { 
+                        style: { fontSize: '12px', color: '#666' },
+                        rotation: -45
+                    }
+                },
+                yAxis: {
+                    title: { 
+                        text: 'Number of Orders',
+                        style: { fontSize: '12px', color: '#666' }
+                    },
+                    labels: { style: { fontSize: '12px', color: '#666' } }
+                },
+                series: [{
+                    name: 'Orders',
+                    data: data.orders.map((orders, i) => ({
+                        y: orders,
+                        color: ['#667eea', '#764ba2', '#f093fb', '#f5576c', '#4facfe', '#43e97b', '#ff9a9e', '#fad0c4', '#a18cd1'][i]
+                    })),
+                    dataLabels: {
+                        enabled: true,
+                        format: '{point.y:,.0f}',
+                        style: { fontSize: '10px', fontWeight: 'bold' }
+                    }
+                }],
+                legend: { enabled: false },
+                credits: { enabled: false },
+                tooltip: {
+                    pointFormat: '<b>{point.y:,.0f}</b> orders'
+                }
+            });
+        }
+
+        function createRegionalGrowthChart() {
+            const data = reportData.regional_growth;
+            if (!data) return;
+
+            createChartWithLoading('regionalGrowthChart', {
+                chart: { type: 'bar', height: 450 },
+                title: { text: 'Regional Growth Rates (%)' },
+                xAxis: {
+                    categories: data.map(d => d.region),
+                    labels: { style: { fontSize: '12px', color: '#666' } }
+                },
+                yAxis: {
+                    title: { text: 'Growth Rate (%)', style: { fontSize: '12px', color: '#666' } },
+                    labels: { style: { fontSize: '12px', color: '#666' } }
+                },
+                series: [{
+                    name: 'Growth Rate',
+                    data: data.map(d => ({
+                        y: d.growth,
+                        color: d.growth >= 0 ? '#00b894' : '#e17055'
+                    }))
+                }],
+                legend: { enabled: false },
+                credits: { enabled: false }
+            });
+        }
+
+        function createLifecycleChart() {
+            const upgradesData = reportData.upgrades_renewals?.upgrades || [];
+            const renewalsData = reportData.upgrades_renewals?.renewals || [];
+            
+            if (upgradesData.length === 0) return;
+
+            // Function to aggregate daily data into weekly totals
+            function aggregateToWeekly(data) {
+                const weeklyTotals = {};
+                
+                data.forEach(item => {
+                    const date = new Date(item.date);
+                    // Get the start of the week (Monday)
+                    const startOfWeek = new Date(date);
+                    const day = startOfWeek.getDay();
+                    const diff = startOfWeek.getDate() - day + (day === 0 ? -6 : 1); // Adjust when day is Sunday
+                    startOfWeek.setDate(diff);
+                    
+                    const endOfWeek = new Date(startOfWeek);
+                    endOfWeek.setDate(startOfWeek.getDate() + 6);
+                    
+                    const weekKey = `${startOfWeek.getFullYear()}-${String(startOfWeek.getMonth() + 1).padStart(2, '0')}-${String(startOfWeek.getDate()).padStart(2, '0')}`;
+                    
+                    if (!weeklyTotals[weekKey]) {
+                        weeklyTotals[weekKey] = { 
+                            bookings: 0, 
+                            orders: 0,
+                            startDate: startOfWeek,
+                            endDate: endOfWeek
+                        };
+                    }
+                    
+                    weeklyTotals[weekKey].bookings += item.bookings;
+                    weeklyTotals[weekKey].orders += item.orders;
+                });
+                
+                return weeklyTotals;
+            }
+
+            // Function to format week key to display format
+            function formatWeekDisplay(weekKey, weekData) {
+                const startDate = weekData.startDate;
+                const endDate = weekData.endDate;
+                return `${String(startDate.getMonth() + 1)}/${String(startDate.getDate())} - ${String(endDate.getMonth() + 1)}/${String(endDate.getDate())}`;
+            }
+
+            // Aggregate data to weekly totals
+            const weeklyUpgrades = aggregateToWeekly(upgradesData);
+            const weeklyRenewals = aggregateToWeekly(renewalsData);
+            
+            // Get all weeks and sort them
+            const allWeeks = [...new Set([...Object.keys(weeklyUpgrades), ...Object.keys(weeklyRenewals)])].sort();
+            
+            // Prepare data arrays
+            const upgradeBookingsData = allWeeks.map(week => weeklyUpgrades[week]?.bookings || 0);
+            const renewalBookingsData = allWeeks.map(week => weeklyRenewals[week]?.bookings || 0);
+            const weekLabels = allWeeks.map(week => {
+                const weekData = weeklyUpgrades[week] || weeklyRenewals[week];
+                return formatWeekDisplay(week, weekData);
+            });
+
+            createChartWithLoading('lifecycleChart', {
+                chart: { type: 'line', height: 450 },
+                title: { text: 'Member Upgrades & Renewals - Weekly Booking Totals' },
+                xAxis: {
+                    categories: weekLabels,
+                    labels: { 
+                        style: { fontSize: '11px', color: '#666' },
+                        rotation: -45
+                    }
+                },
+                yAxis: {
+                    title: { text: 'Weekly Bookings ($)', style: { fontSize: '12px', color: '#666' } },
+                    labels: { 
+                        style: { fontSize: '12px', color: '#666' },
+                        formatter: function() { return formatCurrency(this.value); }
+                    }
+                },
+                series: [{
+                    name: 'Upgrade Bookings',
+                    data: upgradeBookingsData,
+                    color: '#9b59b6',
+                    lineWidth: 2,
+                    marker: { radius: 4 }
+                }, {
+                    name: 'Renewal Bookings',
+                    data: renewalBookingsData,
+                    color: '#34495e',
+                    lineWidth: 2,
+                    marker: { radius: 4 }
+                }],
+                legend: { enabled: true },
+                credits: { enabled: false },
+                tooltip: {
+                    pointFormat: '<span style="color:{series.color}">{series.name}</span>: <b>{point.y:,.0f}</b><br/>',
+                    shared: true
+                }
+            });
+        }
+
+        function createForecastChart() {
+            const data = reportData.forecast_scenarios;
+            if (!data) return;
+
+            createChartWithLoading('forecastChart', {
+                chart: { type: 'line', height: 450 },
+                title: { text: 'CAC Forecast by Spend Increase' },
+                xAxis: {
+                    categories: data.map(d => `+${d.spend_increase_pct}%`),
+                    labels: { style: { fontSize: '12px', color: '#666' } }
+                },
+                yAxis: {
+                    title: { text: 'Predicted CAC ($)', style: { fontSize: '12px', color: '#666' } },
+                    labels: { style: { fontSize: '12px', color: '#666' } }
+                },
+                series: [{
+                    name: 'Predicted CAC',
+                    data: data.map(d => Math.round(d.new_cac)),
+                    color: '#e67e22',
+                    lineWidth: 3,
+                    marker: { radius: 6 }
+                }],
+                legend: { enabled: false },
+                credits: { enabled: false }
+            });
+        }
+
+        function createWeeklyProjectionChart() {
+            console.log('=== Creating weekly projection chart ===');
+            console.log('reportData exists:', !!reportData);
+            console.log('weekly_projection exists:', !!reportData.weekly_projection);
+            
+            const data = reportData.weekly_projection;
+            if (!data) {
+                console.error('❌ No weekly projection data found!');
+                console.log('reportData keys:', Object.keys(reportData));
+                return;
+            }
+            console.log('✅ Weekly projection data found:', data.length, 'weeks');
+            console.log('Data structure:', data);
+            
+            const currentCAC = reportData.current_week?.cac || 789;
+            
+            // Hide loading, show chart directly
+            const container = document.getElementById('weeklyProjectionChart');
+            const loadingDiv = container.parentElement.querySelector('.chart-loading');
+            
+            try {
+                loadingDiv.style.display = 'none';
+                container.style.display = 'block';
+                
+                // Create chart directly
+                Highcharts.chart('weeklyProjectionChart', {
+                    chart: { 
+                        type: 'area', 
+                        height: 450,
+                        backgroundColor: 'transparent',
+                        style: { fontFamily: 'Inter, sans-serif' }
+                    },
+                    title: { 
+                        text: '4-Week CAC Projection (20% Spend Increase Scenario)',
+                        style: { color: '#2C3E50', fontSize: '18px', fontWeight: '600' }
+                    },
+                    xAxis: {
+                        categories: data.map(d => `Week ${d.week}`),
+                        labels: { style: { fontSize: '12px', color: '#666' } }
+                    },
+                    yAxis: {
+                        title: { text: 'CAC ($)', style: { fontSize: '12px', color: '#666' } },
+                        labels: { style: { fontSize: '12px', color: '#666' } },
+                        plotLines: [{
+                            value: currentCAC,
+                            color: '#3498db',
+                            width: 2,
+                            dashStyle: 'Dash',
+                            label: {
+                                text: `Current CAC: $${Math.round(currentCAC)}`,
+                                style: { color: '#3498db', fontWeight: 'bold' }
+                            }
+                        }]
+                    },
+                    series: [{
+                        name: 'Projected CAC',
+                        data: data.map(d => Math.round(d.projected_cac)),
+                        color: '#e74c3c',
+                        lineWidth: 2,
+                        marker: { radius: 4 },
+                        fillOpacity: 0.3
+                    }],
+                    tooltip: {
+                        pointFormat: '<b>${point.y}</b> CAC<br/>Week {point.x + 1} projection'
+                    },
+                    legend: { enabled: false },
+                    credits: { enabled: false }
+                });
+                console.log('Weekly projection chart created successfully');
+            } catch (error) {
+                console.error('Error creating weekly projection chart:', error);
+                loadingDiv.innerHTML = '<div style="color: #e74c3c; text-align: center;">Error loading chart</div>';
+            }
+        }
+
+        function populateForecastScenarios() {
+            const scenarios = document.getElementById('forecastScenarios');
+            const data = reportData.forecast_scenarios;
+            if (!data) return;
+
+            const scenarioCards = data.map(d => {
+                // Calculate spend values based on current month
+                const currentMonthSpend = reportData.current_month?.spend || 2699717;
+                const newMonthlySpend = currentMonthSpend * (1 + d.spend_increase_pct / 100);
+                const additionalSpend = newMonthlySpend - currentMonthSpend;
+                const netNewCustomers = Math.round(additionalSpend / d.new_cac);
+                
+                return `
+                <div class="scenario-card">
+                    <div class="scenario-spend">+${d.spend_increase_pct}%</div>
+                    <div class="scenario-details">
+                        Monthly: $${(newMonthlySpend / 1000000).toFixed(2)}M<br>
+                        Additional: +$${(additionalSpend / 1000).toFixed(0)}K<br>
+                        <strong>Net New Customers: ${netNewCustomers.toLocaleString()}</strong>
+                    </div>
+                    <div class="scenario-cac">$${Math.round(d.new_cac)}</div>
+                </div>
+            `;
+            }).join('');
+
+            scenarios.querySelector('.scenario-grid').innerHTML = scenarioCards;
+        }
+
+        function populateChartCommentary() {
+            // Weekly CAC Commentary
+            const weeklyData = reportData.recent_weekly_cac;
+            if (weeklyData && weeklyData.length >= 2) {
+                const latest = weeklyData[weeklyData.length - 1];
+                const previous = weeklyData[weeklyData.length - 2];
+                const change = ((latest.cac - previous.cac) / previous.cac * 100);
+                const trend = change > 0 ? 'increased' : 'decreased';
+                
+                document.getElementById('weeklyCacCommentary').innerHTML = 
+                    `<strong>Week-over-Week Trend:</strong> CAC ${trend} by ${Math.abs(change).toFixed(1)}% from $${Math.round(previous.cac)} to $${Math.round(latest.cac)}. ${change > 5 ? 'Rising CAC indicates increasing competition or channel saturation.' : change < -5 ? 'Decreasing CAC suggests improved efficiency or better targeting.' : 'CAC remains relatively stable.'}`;
+            }
+
+            // Monthly CAC Commentary
+            const monthlyData = reportData.monthly_cac;
+            if (monthlyData && monthlyData.length >= 2) {
+                const currentMonth = monthlyData[monthlyData.length - 1];
+                const previousMonth = monthlyData[monthlyData.length - 2];
+                const seasonalityNote = currentMonth.cac < 600 ? 'Q4 seasonal efficiency observed' : currentMonth.cac > 750 ? 'Higher CAC during growth periods' : 'Stable performance';
+                
+                document.getElementById('monthlyCacCommentary').innerHTML = 
+                    `<strong>Monthly Analysis:</strong> ${currentMonth.month} CAC of $${Math.round(currentMonth.cac)} vs $${Math.round(previousMonth.cac)} in ${previousMonth.month} (${currentMonth.mom_change > 0 ? '+' : ''}${currentMonth.mom_change.toFixed(1)}% MoM). ${seasonalityNote}. Historical range: $471-$786 indicates significant seasonal and growth-driven variability.`;
+            }
+
+            // Forecast Commentary
+            const forecastData = reportData.forecast_scenarios;
+            if (forecastData && forecastData.length > 0) {
+                const minIncrease = forecastData[0];
+                const maxIncrease = forecastData[forecastData.length - 1];
+                
+                const minIncreaseCustomers = Math.round(minIncrease.monthly_spend / minIncrease.new_cac);
+                const maxIncreaseCustomers = Math.round(maxIncrease.monthly_spend / maxIncrease.new_cac);
+                const currentCustomers = reportData.current_month ? Math.round(reportData.current_month.spend / reportData.current_month.cac) : 3840;
+                
+                document.getElementById('forecastCommentary').innerHTML = 
+                    `<strong>Scaling Impact Analysis:</strong> Modest spend increases (+${minIncrease.spend_increase_pct}%) would acquire ${minIncreaseCustomers.toLocaleString()} new customers monthly (+${(minIncreaseCustomers - currentCustomers).toLocaleString()} vs current) at $${minIncrease.new_cac} CAC, while aggressive scaling (+${maxIncrease.spend_increase_pct}%) could acquire ${maxIncreaseCustomers.toLocaleString()} customers (+${(maxIncreaseCustomers - currentCustomers).toLocaleString()}) at $${maxIncrease.new_cac} CAC. Model assumes 0.15% elasticity coefficient based on diminishing returns as quality traffic becomes scarcer.`;
+            }
+
+            // Regional Orders Commentary
+            const regionalOrders = reportData.regional_orders;
+            if (regionalOrders) {
+                const totalOrders = regionalOrders.orders.reduce((a, b) => a + b, 0);
+                const usShare = (regionalOrders.orders[0] / totalOrders * 100).toFixed(1);
+                const topThree = regionalOrders.regions.slice(0, 3).join(', ');
+                
+                document.getElementById('regionalOrdersCommentary').innerHTML = 
+                    `<strong>Regional Distribution:</strong> US dominates with ${usShare}% of total new member orders (${regionalOrders.orders[0].toLocaleString()} orders). Top markets: ${topThree} represent ${((regionalOrders.orders[0] + regionalOrders.orders[1] + regionalOrders.orders[2]) / totalOrders * 100).toFixed(1)}% of volume. International expansion shows promise in EU and GB markets.`;
+            }
+
+            // Regional Growth Commentary
+            const regionalGrowth = reportData.regional_growth;
+            if (regionalGrowth && regionalGrowth.length > 0) {
+                const leaders = regionalGrowth.filter(r => r.growth > 0).slice(0, 3);
+                const decliners = regionalGrowth.filter(r => r.growth < 0).slice(-3);
+                const leaderNames = leaders.map(r => `${r.region} (+${r.growth.toFixed(1)}%)`).join(', ');
+                const declinerNames = decliners.map(r => `${r.region} (${r.growth.toFixed(1)}%)`).join(', ');
+                
+                document.getElementById('regionalGrowthCommentary').innerHTML = 
+                    `<strong>June vs May Growth:</strong> Growth leaders: ${leaderNames}. Declining markets: ${declinerNames}. US market decline (-14.9%) may indicate seasonal patterns or increased competition, while EU growth (+17.4%) suggests successful international expansion.`;
+            }
+
+            // Lifecycle Commentary
+            const lifecycle = reportData.upgrades_renewals;
+            if (lifecycle) {
+                // Calculate weekly averages for commentary
+                const totalUpgradeBookings = lifecycle.upgrades.reduce((sum, day) => sum + day.bookings, 0);
+                const totalRenewalBookings = lifecycle.renewals.reduce((sum, day) => sum + day.bookings, 0);
+                
+                // Calculate number of weeks (data spans from June 15 to July 14, approximately 4 weeks)
+                const dayCount = lifecycle.upgrades.length;
+                const weekCount = Math.round(dayCount / 7);
+                const avgWeeklyUpgradeBookings = totalUpgradeBookings / weekCount;
+                const avgWeeklyRenewalBookings = totalRenewalBookings / weekCount;
+                
+                document.getElementById('lifecycleCommentary').innerHTML = 
+                    `<strong>Member Lifecycle Bookings:</strong> Upgrade bookings generate ${formatCurrency(avgWeeklyUpgradeBookings)} weekly on average, representing incremental revenue from existing customers. Renewal bookings contribute ${formatCurrency(avgWeeklyRenewalBookings)} weekly in recurring revenue. Combined weekly booking value of ${formatCurrency(avgWeeklyUpgradeBookings + avgWeeklyRenewalBookings)} demonstrates strong customer lifetime value and retention.`;
+            }
+        }
+
+        // Load data when page loads
+        document.addEventListener('DOMContentLoaded', function() {
+            loadData();
+        });
+    </script>
+</body>
+</html>

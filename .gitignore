@@ -42,3 +42,7 @@ wbr/test_output.pdf
 
 # Claude files (optional - you may want to keep these)
 .claude/
+
+# Executive preparation materials (sensitive internal docs)
+executive_defense_prep.md
+EXECUTIVE_BRIEFING_QA.md

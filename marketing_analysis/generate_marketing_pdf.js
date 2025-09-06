@@ -21,8 +21,8 @@ async function generateMarketingPDF() {
 
         const page = await browser.newPage();
         
-        // Set viewport for better chart rendering
-        await page.setViewport({ width: 1920, height: 1080 });
+        // PORTRAIT VIEWPORT - Optimized for portrait A4 dimensions  
+        await page.setViewport({ width: 1000, height: 1400 });
 
         const htmlUrl = `file://${htmlPath}`;
         console.log(`🌐 Loading URL: ${htmlUrl}`);
@@ -74,23 +74,32 @@ async function generateMarketingPDF() {
             console.log(`📈 Charts rendered: ${chartCount}/9 expected`);
         }
         
-        // Generate PDF with optimized settings for marketing report
-        console.log('📄 Generating PDF...');
+        // Scroll to bottom to ensure all content is loaded
+        console.log('📜 Scrolling to ensure all content is loaded...');
+        await page.evaluate(() => {
+            window.scrollTo(0, document.body.scrollHeight);
+        });
+        
+        // Wait a bit more for any lazy-loaded content
+        await new Promise(resolve => setTimeout(resolve, 2000));
+        
+        // Generate PDF with portrait orientation optimized for proper chart display
+        console.log('📄 Generating PDF in portrait mode for standard document format...');
         const pdfBuffer = await page.pdf({
             format: 'A4',
+            landscape: false, // Portrait mode for standard presentation
             margin: {
-                top: '10mm',
-                bottom: '10mm', 
-                left: '8mm',
-                right: '8mm'
+                top: '15mm',
+                bottom: '15mm', 
+                left: '15mm',
+                right: '15mm'
             },
             printBackground: true,
-            scale: 0.7, // Slightly smaller scale for more content per page
+            scale: 0.75, // Optimized scale for portrait layout
             preferCSSPageSize: false,
             displayHeaderFooter: true,
-            headerTemplate: '<div style="font-size:10px;color:#666;text-align:center;width:100%;">Eight Sleep Marketing Report</div>',
-            footerTemplate: '<div style="font-size:10px;color:#666;text-align:center;width:100%;"><span class="pageNumber"></span> / <span class="totalPages"></span></div>',
-            landscape: false
+            headerTemplate: '<div></div>', // Clean - no duplicate header
+            footerTemplate: '<div style="font-size:10px;color:#666;text-align:center;width:100%;margin-top:3mm;">Page <span class="pageNumber"></span> of <span class="totalPages"></span></div>',
         });
         
         // Save PDF

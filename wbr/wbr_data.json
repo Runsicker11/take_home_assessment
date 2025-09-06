@@ -3,92 +3,96 @@
     "period": "07/07 - 07/13",
     "spend": 678408.0,
     "orders": 859,
-    "bookings": 3564795.0,
+    "bookings": 4680572.0,
+    "visitors": 322644,
     "cac": 789.7648428405122
   },
   "previous_week": {
     "period": "06/30 - 07/06",
     "spend": 829136.0,
     "orders": 1097,
-    "bookings": 4598045.0,
+    "bookings": 5746959.0,
+    "visitors": 506210,
     "cac": 755.8213309024612
   },
   "current_month": {
     "period": "June 2025",
     "spend": 2699717.0,
     "orders": 3840,
-    "bookings": 15674165.0,
+    "bookings": 19923081.0,
+    "visitors": 2032987,
     "cac": 703.0513020833333
   },
   "previous_month": {
     "period": "May 2025",
     "spend": 3437910.0,
     "orders": 4376,
-    "bookings": 18411489.0,
+    "bookings": 26208902.0,
+    "visitors": 2936681,
     "cac": 785.6284277879342
   },
   "recent_weekly_cac": [
     {
-      "week": "2025-W21",
+      "week": "2025-05-19/2025-05-25",
       "spend": 720036.0,
       "orders": 1024,
-      "bookings": 4407230.0,
+      "bookings": 6528966.0,
       "cac": 703.16015625,
       "wow_change": -21.60459559779815
     },
     {
-      "week": "2025-W22",
+      "week": "2025-05-26/2025-06-01",
       "spend": 859426.0,
       "orders": 1140,
-      "bookings": 4805253.0,
+      "bookings": 6855543.0,
       "cac": 753.8824561403509,
       "wow_change": 7.213477532751034
     },
     {
-      "week": "2025-W23",
+      "week": "2025-06-02/2025-06-08",
       "spend": 648379.0,
       "orders": 901,
-      "bookings": 3694730.0,
+      "bookings": 4835804.0,
       "cac": 719.6215316315205,
       "wow_change": -4.544597666357153
     },
     {
-      "week": "2025-W24",
+      "week": "2025-06-09/2025-06-15",
       "spend": 580229.0,
       "orders": 777,
-      "bookings": 3184211.0,
+      "bookings": 4126799.0,
       "cac": 746.7554697554698,
       "wow_change": 3.7705845269014437
     },
     {
-      "week": "2025-W25",
+      "week": "2025-06-16/2025-06-22",
       "spend": 600446.0,
       "orders": 854,
-      "bookings": 3425893.0,
+      "bookings": 4312949.0,
       "cac": 703.0983606557377,
       "wow_change": -5.846238945397742
     },
     {
-      "week": "2025-W26",
+      "week": "2025-06-23/2025-06-29",
       "spend": 672387.0,
       "orders": 974,
-      "bookings": 4024460.0,
+      "bookings": 4951047.0,
       "cac": 690.3357289527721,
       "wow_change": -1.8151986147518007
     },
     {
-      "week": "2025-W27",
+      "week": "2025-06-30/2025-07-06",
       "spend": 829136.0,
       "orders": 1097,
-      "bookings": 4598045.0,
+      "bookings": 5746959.0,
       "cac": 755.8213309024612,
       "wow_change": 9.486051380975113
     },
     {
-      "week": "2025-W28",
+      "week": "2025-07-07/2025-07-13",
       "spend": 678408.0,
       "orders": 859,
-      "bookings": 3564795.0,
+      "bookings": 4680572.0,
       "cac": 789.7648428405122,
       "wow_change": 4.490943897749222
     }
@@ -98,7 +102,7 @@
       "month": "2024-08",
       "spend": 1893983.0,
       "orders": 3334,
-      "bookings": 11646566.0,
+      "bookings": 14896835.0,
       "cac": 568.0812837432513,
       "mom_change": -12.842331874140067
     },
@@ -106,7 +110,7 @@
       "month": "2024-09",
       "spend": 1784066.0,
       "orders": 2815,
-      "bookings": 9997755.0,
+      "bookings": 13176451.0,
       "cac": 633.7712255772647,
       "mom_change": 11.563475811271818
     },
@@ -114,7 +118,7 @@
       "month": "2024-10",
       "spend": 1504325.0,
       "orders": 2247,
-      "bookings": 8241940.0,
+      "bookings": 10363220.0,
       "cac": 669.4815309301291,
       "mom_change": 5.63457347252363
     },
@@ -122,7 +126,7 @@
       "month": "2024-11",
       "spend": 2918373.0,
       "orders": 4834,
-      "bookings": 17552907.0,
+      "bookings": 21681470.0,
       "cac": 603.7180388911875,
       "mom_change": -9.82304798574124
     },
@@ -130,7 +134,7 @@
       "month": "2024-12",
       "spend": 2007907.0,
       "orders": 4261,
-      "bookings": 15342391.0,
+      "bookings": 18447928.0,
       "cac": 471.2290542126261,
       "mom_change": -21.9455070320403
     },
@@ -138,7 +142,7 @@
       "month": "2025-01",
       "spend": 1482448.0,
       "orders": 2273,
-      "bookings": 8273662.0,
+      "bookings": 10429059.0,
       "cac": 652.1988561372635,
       "mom_change": 38.40378692842248
     },
@@ -146,7 +150,7 @@
       "month": "2025-02",
       "spend": 1545287.0,
       "orders": 2611,
-      "bookings": 9271477.0,
+      "bookings": 11313282.0,
       "cac": 591.8372271160475,
       "mom_change": -9.255095812144775
     },
@@ -154,7 +158,7 @@
       "month": "2025-03",
       "spend": 1668573.0,
       "orders": 2789,
-      "bookings": 9863277.0,
+      "bookings": 12087238.0,
       "cac": 598.2692721405522,
       "mom_change": 1.0867929102478469
     },
@@ -162,7 +166,7 @@
       "month": "2025-04",
       "spend": 1928805.0,
       "orders": 2917,
-      "bookings": 10279102.0,
+      "bookings": 12579758.0,
       "cac": 661.2290023997258,
       "mom_change": 10.523644317200098
     },
@@ -170,7 +174,7 @@
       "month": "2025-05",
       "spend": 3437910.0,
       "orders": 4376,
-      "bookings": 18411489.0,
+      "bookings": 26208902.0,
       "cac": 785.6284277879342,
       "mom_change": 18.813364951739754
     },
@@ -178,7 +182,7 @@
       "month": "2025-06",
       "spend": 2699717.0,
       "orders": 3840,
-      "bookings": 15674165.0,
+      "bookings": 19923081.0,
       "cac": 703.0513020833333,
       "mom_change": -10.510964571013604
     },
@@ -186,7 +190,7 @@
       "month": "2025-07",
       "spend": 1398143.0,
       "orders": 1793,
-      "bookings": 7506781.0,
+      "bookings": 9650755.0,
       "cac": 779.7785833798104,
       "mom_change": 10.913468344218003
     }
@@ -197,87 +201,131 @@
       "EU",
       "GB",
       "CA",
-      "MX",
       "AU",
-      "CH",
       "ME",
+      "MX",
+      "CH",
       "Other"
     ],
     "orders": [
-      5645,
-      615,
-      464,
-      304,
-      198,
-      191,
-      189,
-      187,
-      2
+      46729,
+      3433,
+      2964,
+      2465,
+      2322,
+      764,
+      676,
+      371,
+      30
     ]
   },
   "regional_growth": [
     {
-      "region": "AU",
-      "growth": -32.16783216783217
-    },
-    {
-      "region": "CA",
-      "growth": -7.894736842105263
+      "region": "EU",
+      "growth": 17.41,
+      "june_orders": 344,
+      "may_orders": 293
     },
     {
       "region": "CH",
-      "growth": 19.791666666666664
-    },
-    {
-      "region": "EU",
-      "growth": -2.564102564102564
+      "growth": 13.64,
+      "june_orders": 100,
+      "may_orders": 88
     },
     {
       "region": "GB",
-      "growth": 17.2
+      "growth": 9.01,
+      "june_orders": 254,
+      "may_orders": 233
     },
     {
-      "region": "ME",
-      "growth": -23.931623931623932
+      "region": "AU",
+      "growth": 3.92,
+      "june_orders": 106,
+      "may_orders": 102
     },
     {
-      "region": "MX",
-      "growth": -61.111111111111114
-    },
-    {
-      "region": "Other",
-      "growth": -33.33333333333333
+      "region": "CA",
+      "growth": 0.0,
+      "june_orders": 152,
+      "may_orders": 152
     },
     {
       "region": "US",
-      "growth": -13.064259160913435
+      "growth": -14.88,
+      "june_orders": 2711,
+      "may_orders": 3185
+    },
+    {
+      "region": "ME",
+      "growth": -43.38,
+      "june_orders": 77,
+      "may_orders": 136
+    },
+    {
+      "region": "MX",
+      "growth": -47.51,
+      "june_orders": 95,
+      "may_orders": 181
+    },
+    {
+      "region": "Other",
+      "growth": -83.33,
+      "june_orders": 1,
+      "may_orders": 6
     }
   ],
   "forecast_scenarios": [
     {
-      "spend_increase_pct": 10.000000000000009,
-      "new_cac": 769.1745660323298,
-      "cac_increase_pct": 1.3824884792627001
+      "spend_increase_pct": 10,
+      "new_cac": 801.61,
+      "cac_increase_pct": 1.5
     },
     {
-      "spend_increase_pct": 19.999999999999996,
-      "new_cac": 778.139304564175,
-      "cac_increase_pct": 2.564102564102555
+      "spend_increase_pct": 20,
+      "new_cac": 813.46,
+      "cac_increase_pct": 3.0
     },
     {
-      "spend_increase_pct": 30.000000000000004,
-      "new_cac": 785.889696043898,
-      "cac_increase_pct": 3.5856573705179473
+      "spend_increase_pct": 30,
+      "new_cac": 825.3,
+      "cac_increase_pct": 4.5
     },
     {
-      "spend_increase_pct": 50.0,
-      "new_cac": 798.6166546842849,
-      "cac_increase_pct": 5.263157894736836
+      "spend_increase_pct": 50,
+      "new_cac": 849.0,
+      "cac_increase_pct": 7.5
     },
     {
-      "spend_increase_pct": 100.0,
-      "new_cac": 820.2008885946708,
-      "cac_increase_pct": 8.108108108108091
+      "spend_increase_pct": 100,
+      "new_cac": 908.23,
+      "cac_increase_pct": 15.0
+    }
+  ],
+  "weekly_projection": [
+    {
+      "week": 1,
+      "projected_spend": 814090.0,
+      "projected_cac": 816.62,
+      "cac_vs_current": 3.4
+    },
+    {
+      "week": 2,
+      "projected_spend": 814090.0,
+      "projected_cac": 819.78,
+      "cac_vs_current": 3.8
+    },
+    {
+      "week": 3,
+      "projected_spend": 814090.0,
+      "projected_cac": 822.93,
+      "cac_vs_current": 4.2
+    },
+    {
+      "week": 4,
+      "projected_spend": 814090.0,
+      "projected_cac": 826.09,
+      "cac_vs_current": 4.6
     }
   ],
   "recent_summary": {
@@ -285,7 +333,7 @@
     "current_month_name": "June 2025",
     "comparison_month_name": "May 2025",
     "latest_complete_week": "2025-07-13",
-    "analysis_note": "June shows seasonal decline compared to May's traditional surge in sales performance"
+    "analysis_note": "CAC trends show seasonal patterns with Q4 efficiency gains"
   },
   "upgrades_renewals": {
     "upgrades": [
