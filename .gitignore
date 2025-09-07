@@ -46,3 +46,6 @@ wbr/test_output.pdf
 # Executive preparation materials (sensitive internal docs)
 executive_defense_prep.md
 EXECUTIVE_BRIEFING_QA.md
+
+# Raw data files (source datasets)
+Raw Data/

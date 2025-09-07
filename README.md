@@ -16,16 +16,35 @@ The project demonstrates end-to-end data analysis, visualization, and report aut
 eight_sleep_assessment/
 ├── Raw Data/                           # Original data files
 ├── marketing_analysis/                 # Marketing funnel analysis
+│   ├── marketing_performance.html    # Marketing Performance Dashboard
+│   ├── eight_sleep_marketing_report.pdf # Final Marketing PDF Report
+│   └── marketing_data.json          # Marketing metrics data
 ├── wbr/                               # WBR Report Generation System
-│   ├── wbr_report_puppeteer.html     # Final report template
-│   ├── test_pdf_simple.js            # PDF generation script
-│   ├── generate_pdf_nodejs.bat       # Easy execution script
-│   ├── wbr_data.json                 # Business metrics data
-│   ├── wbr_analysis_reference.ipynb  # Analysis documentation
-│   └── test_output.pdf               # Generated report (564KB)
-├── eight_sleep_technical_analysis.ipynb # Main analysis notebook
+│   ├── wbr_executive_report.html    # Interactive WBR Dashboard
+│   ├── wbr_data.json                # Business metrics data
+│   └── README.md                     # WBR documentation
 └── README.md                          # This file
 ```
+
+## 🎯 Main Deliverables
+
+### 1. **WBR Executive Report** (`wbr/wbr_executive_report.html`)
+- **Purpose**: Interactive Weekly Business Review dashboard for executive team
+- **Features**: 
+  - Real-time KPI tracking with WoW/MoM comparisons
+  - CAC analysis with forecast scenarios
+  - Regional performance metrics
+  - Member lifecycle booking analysis
+- **Access**: Open directly in browser for interactive experience
+
+### 2. **Marketing Performance Dashboard** (`marketing_analysis/marketing_performance.html`)
+- **Purpose**: Comprehensive marketing channel analysis and attribution insights
+- **Features**:
+  - Channel-by-channel ROAS and efficiency metrics
+  - Attribution analysis across touchpoints
+  - Customer journey mapping
+  - PDF export capability via `eight_sleep_marketing_report.pdf`
+- **Access**: Open directly in browser or view PDF report
 
 ## 🚀 WBR Report System
 

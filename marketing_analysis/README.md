@@ -5,29 +5,28 @@ This comprehensive analysis of Eight Sleep's 18-month marketing data provides bo
 
 ## Deliverables
 
-### 1. Technical Analysis (`eight_sleep_technical_analysis.ipynb`)
-A comprehensive Jupyter notebook featuring:
-- **Data Preprocessing**: Cleaning, revenue classification (product vs subscription)
-- **Exploratory Data Analysis**: Channel performance, funnel analysis, time series trends
-- **Advanced Analytics**: Customer journey mapping, email cohort analysis, seasonality detection
-- **Anomaly Detection**: Cart/order discrepancies, statistical outliers, data quality issues
-- **Time Series Forecasting**: 6-month revenue projections with confidence intervals
-- **Strategic Recommendations**: Data-driven insights for budget reallocation and optimization
+### 1. Marketing Performance Dashboard (`marketing_performance.html`) ⭐
+A comprehensive interactive HTML dashboard featuring:
+- **Channel Performance Analysis**: ROAS, CAC, and efficiency metrics by channel
+- **Attribution Insights**: Cross-channel impact and multi-touch attribution
+- **Customer Journey Mapping**: Funnel analysis from awareness to conversion
+- **Email Campaign Analysis**: Capture rates and conversion windows
+- **Interactive Visualizations**: Highcharts-powered charts with hover tooltips
+- **Executive Commentary**: Automated insights and recommendations
 
-### 2. Executive Report (`eight_sleep_executive_report.html`)
-A polished, interactive HTML report designed for stakeholders:
-- **Clean Design**: Minimal layout with professional typography and consistent spacing
-- **Interactive Visualizations**: Highcharts-powered charts with export capabilities
-- **Executive Summary**: Key metrics and high-impact findings in business language
-- **Strategic Insights**: Non-technical explanations of data patterns and their implications
-- **Print-Optimized**: CSS styling for clean PDF export
+### 2. Marketing Report PDF (`eight_sleep_marketing_report.pdf`)
+Professional PDF report for executive distribution:
+- **Clean Layout**: Print-optimized formatting and page breaks
+- **High-Quality Charts**: Professional visualizations of key metrics
+- **Strategic Insights**: Non-technical explanations of data patterns
+- **Actionable Recommendations**: Budget allocation and optimization strategies
 
-### 3. Report Generator (`eight_sleep_report_generator.py`)
-A standalone Python script that automates the analysis:
-- **Data Processing**: Automated cleaning and metric calculation
-- **Analysis Pipeline**: Comprehensive analytics workflow
-- **JSON Export**: Machine-readable results for further processing
-- **Console Summary**: Quick executive overview
+### 3. Technical Analysis Notebook (`eight_sleep_technical_analysis.ipynb`)
+Comprehensive Jupyter notebook with:
+- **Data Preprocessing**: Cleaning, revenue classification
+- **Advanced Analytics**: Customer journey mapping, cohort analysis
+- **Statistical Analysis**: Seasonality detection, anomaly identification
+- **Forecasting Models**: 6-month revenue projections with confidence intervals
 
 ## Key Findings
 

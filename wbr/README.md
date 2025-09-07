@@ -12,21 +12,21 @@ This project provides comprehensive Weekly Business Review (WBR) analysis for bu
 
 ```
 wbr/
-├── wbr_analysis.ipynb          # Technical Jupyter notebook with full analysis
-├── wbr_report.html             # Interactive executive HTML report
-├── wbr_report_pdf.html         # PDF-optimized HTML report
-├── wbr_data.json               # Processed data for visualizations
-├── data_prep.py                # Data processing script
-├── generate_pdf.js             # Node.js PDF generator (Puppeteer)
-├── generate_pdf.py             # Python PDF generator (Playwright/WeasyPrint)
-├── generate_pdf.bat            # Windows batch script
-└── README.md                   # This file
+├── wbr_executive_report.html  # Main Interactive WBR Dashboard ⭐
+├── wbr_data.json              # Processed business metrics data
+├── wbr_report_puppeteer.html  # PDF-optimized HTML report
+├── package.json               # Node.js dependencies
+└── README.md                  # This file
 ```
 
 ## 🚀 Quick Start
 
 ### 1. View Interactive Report
-Open `wbr_report.html` in any modern web browser to view the interactive dashboard.
+Open `wbr_executive_report.html` in any modern web browser to view the interactive dashboard with:
+- Live KPI cards with week-over-week trends
+- Interactive charts with hover tooltips
+- Automated commentary and insights
+- CAC forecast scenarios
 
 ### 2. Generate PDF Report
 
